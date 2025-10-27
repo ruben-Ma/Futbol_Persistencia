@@ -1,20 +1,21 @@
 <?php
+// Fichero: app/persistence/DAO/GenericDAO.php
 
-require __DIR__ . '/../../persistence/conf/PersistentManager.php';
+// ¡¡CAMBIO IMPORTANTE!!
+// La ruta sube un nivel (..) para entrar en la carpeta conf/
+require_once __DIR__ . '/../conf/PersistentManager.php';
+
+/**
+ * Clase base para todos los DAOs.
+ * Proporciona la conexión a la BBDD ($conn) a sus hijos.
+ */
 abstract class GenericDAO {
 
-  //Conexión a BD
-  protected $conn = null;
-  //Constructor de la clase
-  public function __construct() {
-    $this->conn = PersistentManager::getInstance()->get_connection();
-  }
+    /** @var mysqli $conn Conexión a BD */
+    protected $conn = null;
 
-  // métodos abstractos para CRUD de clases que hereden
-  abstract protected function insert($nombre, $password);
-  abstract protected function selectAll();
-  abstract protected function selectById($id);
-  abstract protected function update($id, $nombre, $password);
-  abstract protected function delete($id);
-
+    public function __construct() {
+        $manager = PersistentManager::getInstance();
+        $this->conn = $manager->getConnection();
+    }
 }
