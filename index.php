@@ -11,6 +11,7 @@
 require_once 'templates/header.php';
 require_once 'templates/menu.php';
 require_once 'utils/SessionHelper.php';
+
 ?>
 <!-- Bootstrap core CSS
 * TODO REVISE Este es el aspecto negativo de esta estructura ya que el código esta duplicado
@@ -37,5 +38,4 @@ Y además no está en ASSETS
 <script src=".\assets\js\bootstrap.js"></script>
 
 </body>
-
 </html>
