@@ -124,7 +124,9 @@ include __DIR__ . '/../templates/menu.php';
                                 <tr>
                                     <td><?= htmlspecialchars($equipo['id']) ?></td>
                                     <td>
-                                        <strong><?= htmlspecialchars($equipo['nombre']) ?></strong>
+                                        <a href="partidos_equipo.php?id=<?= htmlspecialchars($equipo['id']) ?>">
+                                            <strong><?= htmlspecialchars($equipo['nombre']) ?></strong>
+                                        </a>
                                     </td>
                                     <td>
                                         <i class="bi bi-geo-alt"></i>
