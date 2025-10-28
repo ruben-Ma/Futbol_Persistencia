@@ -1,61 +1,71 @@
 <?php
 
-/**
- * class SessionUtils
- *
- * Contains util methods to deal with SESSIONS.
- *
- * @version    0.2
- *
- * @author     Ander Frago & Miguel Goyena <miguel_goyena@cuatrovientos.org>
- */
 class SessionHelper {
 
-  /**
-   * Checks if the session is not started. In that case, it calls start.
-   */
-  static function startSessionIfNotStarted() {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start([
-          'cookie_lifetime' => 86400,
-        ]);
+   
+    static function startSessionIfNotStarted() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start([
+                'cookie_lifetime' => 86400, // 1 día
+                'cookie_httponly' => true,  // No accesible por JS
+                'cookie_samesite' => 'Strict' // Mitiga CSRF
+            ]);
+        }
     }
-  }
 
-  static function destroySession() {
-    self::startSessionIfNotStarted();
-    $_SESSION = array();
+    static function destroySession() {
+        self::startSessionIfNotStarted();
+        $_SESSION = array();
 
-    if (session_id() != "" || isset($_COOKIE[session_name()]))
-      setcookie(session_name(), '', time() - 2592000, '/');
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
 
-    session_destroy();
-  }
-
-  static function setSession($user) {
-    self::startSessionIfNotStarted();
-    $_SESSION['user'] = $user;
-    if (!isset($_SESSION['CREATED'])) {
-      $_SESSION['CREATED'] = time();
-    } else if (time() - $_SESSION['CREATED'] > 1800) {
-      // session started more than 30 minutes ago
-      session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
-      $_SESSION['CREATED'] = time();  // update creation time
+        session_destroy();
     }
-  }
 
-  static function loggedIn() {
-    self::startSessionIfNotStarted();
-    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
-      // last request was more than 30 minutes ago
-      session_unset();     // unset $_SESSION variable for the run-time
-      session_destroy();   // destroy session data in storage
+  
+    static function setLastTeamViewed(int $teamId) {
+        self::startSessionIfNotStarted();
+        $_SESSION['last_team_viewed_id'] = $teamId;
     }
-    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
-    if (isset($_SESSION['user'])) {
-      return true;
-    } else {
-      return false;
+
+   
+    static function getLastTeamViewed(): ?int {
+        self::startSessionIfNotStarted();
+        return $_SESSION['last_team_viewed_id'] ?? null;
     }
-  }
+
+    
+    static function clearLastTeamViewed() {
+        self::startSessionIfNotStarted();
+        unset($_SESSION['last_team_viewed_id']);
+    }
+
+   
+    static function setFlashMessage(string $type, string $message) {
+        self::startSessionIfNotStarted();
+        $_SESSION['flash_' . $type] = $message;
+    }
+
+    
+    static function getFlashMessages(): array {
+        self::startSessionIfNotStarted();
+        $success = null;
+        $error = null;
+
+        if (isset($_SESSION['flash_success'])) {
+            $success = $_SESSION['flash_success'];
+            unset($_SESSION['flash_success']);
+        }
+        if (isset($_SESSION['flash_error'])) {
+            $error = $_SESSION['flash_error'];
+            unset($_SESSION['flash_error']);
+        }
+        return [$success, $error];
+    }
 }

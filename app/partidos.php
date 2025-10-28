@@ -97,49 +97,7 @@ include __DIR__ . '/../templates/menu.php';
     </div>
     
     <!-- Lista de equipos existentes -->
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Equipos Registrados (<?= count($equipos) ?>)</h3>
-        </div>
-        <div class="card-body">
-            <?php if (empty($equipos)): ?>
-                <div class="text-center py-5">
-                    <div class="mb-3">
-                        <i class="bi bi-inbox" style="font-size: 3rem; color: #6c757d;"></i>
-                    </div>
-                    <h5 class="text-muted">No hay equipos registrados</h5>
-                    <p class="text-muted">Agrega el primer equipo usando el formulario de arriba.</p>
-                </div>
-            <?php else: ?>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre del Equipo</th>
-                                <th>Estadio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($equipos as $equipo): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($equipo['id']) ?></td>
-                                    <td>
-                                        <strong><?= htmlspecialchars($equipo['nombre']) ?></strong>
-                                    </td>
-                                    <td>
-                                        <i class="bi bi-geo-alt"></i>
-                                        <?= htmlspecialchars($equipo['estadio']) ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
+   
 
 <?php
 include __DIR__ . '/../templates/footer.php';

@@ -2,125 +2,106 @@
 
 require_once __DIR__ . '/../utils/SessionHelper.php';
 require_once __DIR__ . '/../persistence/DAO/EquipoDAO.php';
+require_once __DIR__ . '/../persistence/DAO/PartidoDAO.php';
 
 SessionHelper::startSessionIfNotStarted();
 
-$equipos = [];
-$pageTitle = "Gestión de Equipos";
-$success = '';
-$error = '';
 
-// Obtener mensajes de la sesión
-if (isset($_SESSION['success'])) {
-    $success = $_SESSION['success'];
-    unset($_SESSION['success']);
-}
-if (isset($_SESSION['error'])) {
-    $error = $_SESSION['error'];
-    unset($_SESSION['error']);
-}
+$equipo = null;
+$partidos = [];
+$error = null;
+$pageTitle = "Partidos de Equipo";
 
-try {
-    $equipoDAO = new EquipoDAO();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nombre = trim($_POST['nombre'] ?? '');
-        $estadio = trim($_POST['estadio'] ?? '');
+$equipoId = (int)($_GET['id'] ?? 0);
 
-        if (empty($nombre) || empty($estadio)) {
-            $_SESSION['error'] = 'El nombre y el estadio son obligatorios.';
+if ($equipoId <= 0) {
+    $error = "ID de equipo no válido.";
+} else {
+    try {
+        $equipoDAO = new EquipoDAO();
+        $partidoDAO = new PartidoDAO();
+
+       
+        $equipo = $equipoDAO->getById($equipoId);
+
+        if ($equipo) {
+            
+            SessionHelper::setLastTeamViewed($equipoId);
+            
+          
+            $partidos = $partidoDAO->getByEquipoId($equipoId);
+            $pageTitle = "Partidos de " . htmlspecialchars($equipo['nombre']);
         } else {
-            if ($equipoDAO->insert($nombre, $estadio)) {
-                $_SESSION['success'] = "Equipo '$nombre' agregado con éxito.";
-            } else {
-                $_SESSION['error'] = "El equipo '$nombre' ya existe.";
-            }
+            $error = "Equipo no encontrado.";
+          
+            SessionHelper::clearLastTeamViewed(); 
         }
-        
-        
-        header("Location: equipos.php");
-        exit;
+
+    } catch (Exception $e) {
+        $error = "Error crítico de base de datos: " . $e->getMessage();
     }
-
-    $equipos = $equipoDAO->getAll();
-
-} catch (Exception $e) {
-    $error = "Error crítico de base de datos: " . $e->getMessage();
 }
 
 
 include __DIR__ . '/../templates/header.php';
 include __DIR__ . '/../templates/menu.php';
+
+
 ?>
 
 <div class="container mt-4">
-    <h1>Gestión de Equipos</h1>
-    
-    
-    <?php if ($success): ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <?= htmlspecialchars($success) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    <?php endif; ?>
-    
+
     <?php if ($error): ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <?= htmlspecialchars($error) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    <?php endif; ?>
-    
-    
-    
-   
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Equipos Registrados (<?= count($equipos) ?>)</h3>
-        </div>
-        <div class="card-body">
-            <?php if (empty($equipos)): ?>
-                <div class="text-center py-5">
-                    <div class="mb-3">
-                        <i class="bi bi-inbox" style="font-size: 3rem; color: #6c757d;"></i>
-                    </div>
-                    <h5 class="text-muted">No hay equipos registrados</h5>
-                    <p class="text-muted">Agrega el primer equipo usando el formulario de arriba.</p>
-                </div>
-            <?php else: ?>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead class="table-dark">
+        
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+
+    <?php elseif ($equipo): ?>
+        
+        <h1>Partidos de: <?= htmlspecialchars($equipo['nombre']) ?></h1>
+        <p class="lead">Estadio: <?= htmlspecialchars($equipo['estadio']) ?></p>
+
+        <?php if (empty($partidos)): ?>
+            <!-- Mensaje si no hay partidos -->
+            <div class="alert alert-info text-center mt-5">
+                <h4 class="alert-heading">Sin Partidos</h4>
+                <p>Este equipo aún no ha jugado ningún partido.</p>
+            </div>
+            
+        <?php else: ?>
+            <!-- Tabla de partidos -->
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Jornada</th>
+                            <th>Local</th>
+                            <th>Visitante</th>
+                            <th>Resultado (1X2)</th>
+                            <th>Estadio del Partido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($partidos as $partido): ?>
                             <tr>
-                                <th>ID</th>
-                                <th>Nombre del Equipo</th>
-                                <th>Estadio</th>
+                                <td><?= htmlspecialchars($partido['jornada']) ?></td>
+                                <td><?= htmlspecialchars($partido['local']) ?></td>
+                                <td><?= htmlspecialchars($partido['visitante']) ?></td>
+                                <td>
+                                    <strong><?= htmlspecialchars($partido['resultado']) ?></strong>
+                                </td>
+                                <td><?= htmlspecialchars($partido['estadio_partido']) ?></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($equipos as $equipo): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($equipo['id']) ?></td>
-                                    <td>
-                                        <a href="partidos_equipo.php?id=<?= htmlspecialchars($equipo['id']) ?>">
-                                            <strong><?= htmlspecialchars($equipo['nombre']) ?></strong>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <i class="bi bi-geo-alt"></i>
-                                        <?= htmlspecialchars($equipo['estadio']) ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+
+    <?php endif; ?>
+
 </div>
 
-
-
 <?php
+// 8. Cargar el FOOTER
 include __DIR__ . '/../templates/footer.php';

@@ -1,6 +1,14 @@
 
-<link rel="stylesheet" href="<?php echo $urlApp ?>../assets/css/bootstrap.min.css">
+<?php
 
+$currentPage = basename($_SERVER['PHP_SELF']);
+$isInApp = strpos($_SERVER['PHP_SELF'], '/app/') !== false;
+$basePath = $isInApp ? '' : 'app/';
+$homePath = $isInApp ? '../index.php' : 'index.php';
+?>
+
+
+<link rel="stylesheet" href="<?php echo $urlApp ?>../assets/css/bootstrap.min.css">   
 <nav class="navbar navbar-expand-lg navbar-dark bg-black mb-4">
     <div class="container">
         

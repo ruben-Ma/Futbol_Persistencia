@@ -10,7 +10,6 @@ $pageTitle = "Gestión de Equipos";
 $success = '';
 $error = '';
 
-// Obtener mensajes de la sesión
 if (isset($_SESSION['success'])) {
     $success = $_SESSION['success'];
     unset($_SESSION['success']);
@@ -73,7 +72,6 @@ include __DIR__ . '/../templates/menu.php';
         </div>
     <?php endif; ?>
     
-    <!-- Formulario para agregar equipos -->
     <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Agregar Nuevo Equipo</h3>
