@@ -1,3 +1,8 @@
+<?php //estoy es muy imortante para que se vean las rutas en app
+$dir = __DIR__;
+$urlApp = '/FUTBOL_PERSISTENCIA/FUTBOL_PERSISTENCIA/';
+?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -7,11 +12,7 @@
     <title><?= htmlspecialchars($pageTitle ?? 'Proyecto Liga', ENT_QUOTES, 'UTF-8') ?> - Liga de Fútbol</title>
     
     
-    <?php 
-    $cssPath = (strpos($_SERVER['REQUEST_URI'], '/app/') !== false) ? '../assets/css/' : 'assets/css/';
-    ?>
-    <link rel="stylesheet" href="<?= $cssPath ?>bootstrap.min.css">
-   
+<link rel="stylesheet" href="<?php echo $urlApp ?>../assets/css/bootstrap.min.css">   
     
 </head>
 <body class="d-flex flex-column min-vh-100">

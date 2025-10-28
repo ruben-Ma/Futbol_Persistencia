@@ -51,6 +51,8 @@ try {
 
 include __DIR__ . '/../templates/header.php';
 include __DIR__ . '/../templates/menu.php';
+
+
 ?>
 
 <div class="container mt-4">
