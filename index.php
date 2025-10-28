@@ -1,71 +1,51 @@
 <?php
-// Fichero: index.php (en la raíz: FUTBOL_PERSISTENCIA/index.php)
+/**
+ * @title: Proyecto integrador Ev01 - Página principal
+ * @description:  Bienvenida a la aplicación
+ *
+ * @version    0.1
+ *
+ * @author ander_frago@cuatrovientos.org
+ */
 
-// 1. Cargar dependencias (usando rutas absolutas desde la raíz)
-require_once __DIR__ . '/utils/functions.php';
-require_once __DIR__ . '/utils/SessionHelper.php';
-require_once __DIR__ . '/persistence/DAO/EquipoDAO.php';
-
-// 2. Iniciar la sesión
-SessionHelper::startSessionIfNotStarted();
-
-// 3. Lógica de sesión
-$equipo_favorito = null;
-$team_id = SessionHelper::getLastTeamViewed(); 
-
-if ($team_id) {
-    try {
-        $equipoDAO = new EquipoDAO();
-        $equipo = $equipoDAO->getById((int)$team_id);
-        if ($equipo) {
-            $equipo_favorito = $equipo;
-        } else {
-            SessionHelper::clearLastTeamViewed();
-        }
-    } catch (Exception $e) {
-        // Error de BBDD
-    }
-}
-
-// 4. Cargar la Vista (Header)
-$pageTitle = "Bienvenida - Liga DAM";
-// Las rutas a las plantillas también deben incluir 'app/'
-require_once __DIR__ . '/templates/header.php';
-require_once __DIR__ . '/templates/menu.php';
+require_once 'templates/header.php';
+require_once 'templates/menu.php';
 ?>
+<!-- Bootstrap core CSS
+* TODO REVISE Este es el aspecto negativo de esta estructura ya que el código esta duplicado
+Y además no está en ASSETS
+================================================== -->
+<link rel="stylesheet" href=".\assets\css\bootstrap.css">
 
 <div class="container-fluid py-5 my-5 bg-light">
-    <div id="bienvenida" class="container">
-        <h1 class='display-3'>Bienvenid@ a la Liga DAM</h1>
-        
-        <?php if ($equipo_favorito): ?>
-            
-            <p class'display-6'>
-                Bienvenido de vuelta. Tu última consulta fue <strong><?= e($equipo_favorito['nombre']) ?></strong>.
-            </p>
-            <a href="app/partidos_equipo.php?id=<?= (int)$equipo_favorito['id'] ?>" class="btn btn-primary btn-lg">
-                Ver partidos de <?= e($equipo_favorito['nombre']) ?> &raquo;
-            </a>
-            
-        <?php else: ?>
-            
-            <p class='display-6'>
-                Consulta los equipos y los resultados de las jornadas.
-            </p>
-            <a href="app/equipos.php" class="btn btn-primary btn-lg">
-                Ver Equipos &raquo;
-            </a>
-            <a href="app/partidos.php" class="btn btn-secondary btn-lg">
-                Ver Partidos &raquo;
-            </a>
-
-        <?php endif; ?>
-    </div>
+  <div id="bienvenida" class="container">
+    <h1 class='display-3'>Bienvenid@ a Artean</h1>
+    <?php
+    if (SessionHelper::loggedIn()) echo "<p class='display-6'> Has iniciado sesión: ".$user."</p>";
+    else           echo "<p class='display-6'> por favor, regístrate o inicia sesión.</p>";
+    ?>
+  </div>
 </div>
+<div id="bienvenida" class="img-fluid" alt="Responsive image">
+  <div class="row">
+    <div class="offset-md-3 col-md-6">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Instituto_Cuatrovientos_-_Cuatrovientos_Institutua.png/640px-Instituto_Cuatrovientos_-_Cuatrovientos_Institutua.png"  alt="" title=""/>
+      <p class="lead">Desde Cuatrovientos queremos dar la bienvenida a todo el alumnado que por primera vez se acercan al instituto y a aquellos que continúan con sus programas formativos. </p>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <span class="text-muted">Desarrollo Web - 2º DAM.</span>
+  </div>
+</footer>
 
+<!-- Bootstrap core JavaScript
+* TODO REVISE Este es el aspecto negativo de esta estructura ya que el código esta duplicado
+================================================== -->
 
+<script src=".\assets\js\bootstrap.js"></script>
 
-<?php
-// 5. Cargar la Vista (Footer)
-require_once __DIR__ . '/app/templates/footer.php';
-?>
+</body>
+
+</html>
