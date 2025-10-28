@@ -49,7 +49,7 @@ try {
     $error = "Error crítico de base de datos: " . $e->getMessage();
 }
 
-    
+
 include __DIR__ . '/../templates/header.php';
 include __DIR__ . '/../templates/menu.php';
 ?>
