@@ -1,6 +1,5 @@
 <?php
-// Fichero: app/equipos.php
-// Usamos __DIR__ para que las rutas sean relativas a este fichero (app/)
+
 require_once __DIR__ . '/../utils/SessionHelper.php';
 require_once __DIR__ . '/../persistence/DAO/EquipoDAO.php';
 

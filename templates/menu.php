@@ -7,11 +7,9 @@ $basePath = $isInApp ? '' : 'app/';
 $homePath = $isInApp ? '../index.php' : 'index.php';
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black mb-4">
     <div class="container">
-        <a class="navbar-brand" href="<?= $homePath ?>">
-            <i class="bi bi-house-fill me-2"></i>Inicio
-        </a>
+        
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
