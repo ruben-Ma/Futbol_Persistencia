@@ -195,6 +195,11 @@ include __DIR__ . '/../templates/menu.php';
                             <?php endforeach; ?>
                         </select>
                     </div>
+
+                     <div class="col-md-6">
+                        <label for="estadio_partido" class="form-label">Estadio del Partido:</label>
+                        <input type="text" name="estadio_partido" id="estadio_partido" class="form-control" required>
+                    </div>
                     
                     <div class="col-md-6">
                         <label for="id_visitante" class="form-label">Equipo Visitante:</label>
@@ -206,10 +211,7 @@ include __DIR__ . '/../templates/menu.php';
                         </select>
                     </div>
                     
-                    <div class="col-md-6">
-                        <label for="estadio_partido" class="form-label">Estadio del Partido:</label>
-                        <input type="text" name="estadio_partido" id="estadio_partido" class="form-control" required>
-                    </div>
+                   
                     
                     <div class="col-md-2">
                         <label for="resultado" class="form-label">Resultado:</label>
