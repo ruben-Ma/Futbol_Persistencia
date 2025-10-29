@@ -81,27 +81,49 @@ include __DIR__ . '/../templates/menu.php';
 
 ?>
 
-<div class="container mt-4">
-    <h2>Partidos por Jornada</h2>
-
-    <!-- Filtro de Jornada (Formulario GET) -->
-    <form action="partidos.php" method="GET" class="row mb-3">
-        <div class="col-md-4">
-            <label for="jornada_select" class="form-label">Ver Jornada:</label>
-            <!-- 
-    'onchange="this.form.submit()"' hace que la página se recargue
-              automáticamente al cambiar de jornada.
-            -->
-            <select name="jornada" id="jornada_select" class="form-select" onchange="this.form.submit()">
-                <?php foreach ($jornadasDisponibles as $j): ?>
-                    <option value="<?= $j ?>" <?= ($j == $jornadaSeleccionada) ? 'selected' : '' ?>>
-                        Jornada <?= $j ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+<div class="container-fluid px-4">
+    <!-- Header de esta pagina -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="text-center">
+                <h1 class="display-4 text-primary fw-bold">
+                    <i class="bi bi-calendar-event me-3"></i>Gestión de Partidos
+                </h1>
+                <p class="lead text-muted">Administra los partidos por jornada</p>
+            </div>
         </div>
-    </form>
-    <hr>
+    </div>
+
+    <!-- Filtro de Jornada -->
+    <div class="row mb-4">
+        <div class="col-lg-6 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5 class="mb-0">
+                        <i class="bi bi-funnel me-2"></i>Seleccionar Jornada
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form action="partidos.php" method="GET" class="d-flex justify-content-center">
+                        <div class="col-md-8">
+                            <div class="form-floating">
+                                <select name="jornada" id="jornada_select" class="form-select" onchange="this.form.submit()">
+                                    <?php foreach ($jornadasDisponibles as $j): ?>
+                                        <option value="<?= $j ?>" <?= ($j == $jornadaSeleccionada) ? 'selected' : '' ?>>
+                                            Jornada <?= $j ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <label for="jornada_select">
+                                    <i class="bi bi-calendar-week me-1"></i>Ver Jornada
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- Mensajes de Éxito o Error (del POST) -->
     <?php if ($error): ?>
