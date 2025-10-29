@@ -16,7 +16,7 @@ $urlApp = '/FUTBOL_PERSISTENCIA/FUTBOL_PERSISTENCIA/';
     
 </head>
 <body class="d-flex flex-column min-vh-100">
-    <header class="bg-black text-white p-3">
+    <header class="bg-primary text-white p-3">
         <div class="container">
             <div class="d-flex align-items-center">
                 <i class="bi bi-trophy-fill me-3" style="font-size: 1.5rem;"></i>

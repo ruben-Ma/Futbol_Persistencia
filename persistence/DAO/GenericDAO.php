@@ -1,8 +1,7 @@
 <?php
 // Fichero: app/persistence/DAO/GenericDAO.php
 
-// ¡¡CAMBIO IMPORTANTE!!
-// La ruta sube un nivel (..) para entrar en la carpeta conf/
+
 require_once __DIR__ . '/../conf/PersistentManager.php';
 
 /**

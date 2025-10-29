@@ -72,7 +72,7 @@ include __DIR__ . '/../templates/menu.php';
             <!-- Tabla de partidos -->
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
-                    <thead class="table-dark">
+                    <thead class="table-primary">
                         <tr>
                             <th>Jornada</th>
                             <th>Local</th>

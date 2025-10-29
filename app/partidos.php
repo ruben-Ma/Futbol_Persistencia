@@ -1,6 +1,5 @@
 <?php
-// Fichero: app/equipos.php
-// Usamos __DIR__ para que las rutas sean relativas a este fichero (app/)
+
 require_once __DIR__ . '/../utils/SessionHelper.php';
 require_once __DIR__ . '/../persistence/DAO/EquipoDAO.php';
 
@@ -11,7 +10,7 @@ $pageTitle = "Gestión de Equipos";
 $success = '';
 $error = '';
 
-// Obtener mensajes de la sesión
+
 if (isset($_SESSION['success'])) {
     $success = $_SESSION['success'];
     unset($_SESSION['success']);
@@ -38,7 +37,6 @@ try {
             }
         }
         
-        // Redirige a este mismo fichero
         header("Location: equipos.php");
         exit;
     }
@@ -49,7 +47,6 @@ try {
     $error = "Error crítico de base de datos: " . $e->getMessage();
 }
 
-// Carga las plantillas (las rutas son relativas a este fichero)
 include __DIR__ . '/../templates/header.php';
 include __DIR__ . '/../templates/menu.php';
 ?>

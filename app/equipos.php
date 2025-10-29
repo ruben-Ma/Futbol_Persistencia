@@ -72,11 +72,11 @@ include __DIR__ . '/../templates/menu.php';
         </div>
     <?php endif; ?>
     
-    <div class="card mb-4">
+    <div class="card mb-4  ">
         <div class="card-header">
             <h3 class="card-title">Agregar Nuevo Equipo</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body bg-primary text-white">
             <form method="post" class="row g-3">
                 <div class="col-md-6">
                     <label for="nombre" class="form-label">Nombre del Equipo</label>
@@ -96,11 +96,11 @@ include __DIR__ . '/../templates/menu.php';
     </div>
     
     <!-- Lista de equipos existentes -->
-    <div class="card">
+    <div class="card ">
         <div class="card-header">
             <h3 class="card-title">Equipos Registrados (<?= count($equipos) ?>)</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body bg-primary">
             <?php if (empty($equipos)): ?>
                 <div class="text-center py-5">
                     <div class="mb-3">
@@ -112,7 +112,7 @@ include __DIR__ . '/../templates/menu.php';
             <?php else: ?>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
-                        <thead class="table-dark">
+                        <thead class="table-red">
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre del Equipo</th>

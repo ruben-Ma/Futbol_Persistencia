@@ -11,6 +11,9 @@ class SessionHelper {
                 'cookie_samesite' => 'Strict' // Mitiga CSRF
             ]);
         }
+
+        
+        
     }
 
     static function destroySession() {
@@ -46,6 +49,8 @@ class SessionHelper {
         unset($_SESSION['last_team_viewed_id']);
     }
 
+
+    
    
     static function setFlashMessage(string $type, string $message) {
         self::startSessionIfNotStarted();
