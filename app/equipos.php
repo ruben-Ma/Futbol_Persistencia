@@ -72,31 +72,10 @@ include __DIR__ . '/../templates/menu.php';
         </div>
     <?php endif; ?>
     
-    <div class="card mb-4  ">
-        <div class="card-header">
-            <h3 class="card-title">Agregar Nuevo Equipo</h3>
-        </div>
-        <div class="card-body bg-primary text-white">
-            <form method="post" class="row g-3">
-                <div class="col-md-6">
-                    <label for="nombre" class="form-label">Nombre del Equipo</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="estadio" class="form-label">Estadio</label>
-                    <input type="text" class="form-control" id="estadio" name="estadio" required>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-plus-circle"></i> Agregar Equipo
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+    
     
     <!-- Lista de equipos existentes -->
-    <div class="card ">
+    <div class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Equipos Registrados (<?= count($equipos) ?>)</h3>
         </div>
@@ -140,7 +119,34 @@ include __DIR__ . '/../templates/menu.php';
             <?php endif; ?>
         </div>
     </div>
+
+    <!-- Formulario para agregar equipos -->
+<div class="card mb-4  ">
+        <div class="card-header">
+            <h3 class="card-title">Agregar Nuevo Equipo</h3>
+        </div>
+        <div class="card-body bg-primary text-white">
+            <form method="post" class="row g-3">
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre del Equipo</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="estadio" class="form-label">Estadio</label>
+                    <input type="text" class="form-control" id="estadio" name="estadio" required>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-dark ">
+                        <i class="bi bi-plus-circle"></i> Agregar Equipo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
 </div>
+
 
 
 

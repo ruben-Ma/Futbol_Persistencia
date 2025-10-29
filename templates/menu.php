@@ -18,9 +18,9 @@ $homePath = $isInApp ? '../index.php' : 'index.php';
         </button>
         
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">   
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">   
             
-            <li class="nav-item">
+            <li class="nav-item ">
                     <a class="nav-link <?= ($currentPage == 'equipos.php') ? 'active' : '' ?>" 
                        href="<?= $basePath ?>equipos.php">
                         <i class="bi bi-shield-fill me-1"></i>Equipos

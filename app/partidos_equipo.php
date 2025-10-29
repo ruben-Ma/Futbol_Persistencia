@@ -58,7 +58,7 @@ include __DIR__ . '/../templates/menu.php';
 
     <?php elseif ($equipo): ?>
         
-        <h1>Partidos de: <?= htmlspecialchars($equipo['nombre']) ?></h1>
+        <h1 style="color:blue" >Partidos de: <?= htmlspecialchars($equipo['nombre']) ?></h1>
         <p class="lead">Estadio: <?= htmlspecialchars($equipo['estadio']) ?></p>
 
         <?php if (empty($partidos)): ?>
@@ -103,5 +103,4 @@ include __DIR__ . '/../templates/menu.php';
 </div>
 
 <?php
-// 8. Cargar el FOOTER
 include __DIR__ . '/../templates/footer.php';
