@@ -1,14 +1,13 @@
 <?php
-// Fichero: app/persistence/DAO/EquipoDAO.php
 require_once __DIR__ . '/GenericDAO.php';
 
 class EquipoDAO extends GenericDAO {
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct() {//llama al constructor del padre para conectar con la base de datos
+        parent::__construct();//
     }
 
-    public function getAll(): array {
+    public function getAll(): array {//obtiene todos los equipos de la base de datos
         $query = "SELECT id, nombre, estadio FROM equipos ORDER BY nombre ASC";
         $result = $this->conn->query($query);
         if (!$result) {
@@ -17,7 +16,7 @@ class EquipoDAO extends GenericDAO {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getById(int $id): ?array {
+    public function getById(int $id): ?array {//obtiene un equipo por su id
         $query = "SELECT id, nombre, estadio FROM equipos WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('i', $id);
@@ -28,7 +27,7 @@ class EquipoDAO extends GenericDAO {
         return $equipo ?: null;
     }
 
-    public function insert(string $nombre, string $estadio): bool {
+    public function insert(string $nombre, string $estadio): bool {//inserta un nuevo equipo en la base de datos
         $query = "INSERT INTO equipos (nombre, estadio) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param('ss', $nombre, $estadio);
@@ -37,7 +36,6 @@ class EquipoDAO extends GenericDAO {
             $stmt->close();
             return true;
         } else {
-            // Error 1062: Entrada duplicada (clave UNIQUE)
             if ($this->conn->errno === 1062) {
                 $stmt->close();
                 return false; 

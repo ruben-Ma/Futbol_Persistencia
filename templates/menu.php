@@ -1,13 +1,18 @@
 
 <?php
 
-$currentPage = basename($_SERVER['PHP_SELF']);
-$isInApp = strpos($_SERVER['PHP_SELF'], '/app/') !== false;
-$basePath = $isInApp ? '' : 'app/';
+//funciones para el menu y mover entre pantallas
+
+$currentPage = basename($_SERVER['PHP_SELF']); //la ruta del fichero que se esta ejecunatndo
+$isInApp = strpos($_SERVER['PHP_SELF'], '/app/') !== false;//esto sirve para ver si esta no esta en app, si es false no esta por eso inicia en false por index
+$basePath = $isInApp ? '' : 'app/';//si ya estamos dentro de app no hace falta poner app/ en los enlaces
 $homePath = $isInApp ? '../index.php' : 'index.php';
 ?>
 
 
+
+
+<!-- estilo y diseño del menu -->
 <link rel="stylesheet" href="<?php echo $urlApp ?>../assets/css/bootstrap.min.css">   
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
     <div class="container">

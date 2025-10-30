@@ -4,6 +4,8 @@ $urlApp = '/FUTBOL_PERSISTENCIA/FUTBOL_PERSISTENCIA/';
 ?>
 
 
+
+<!-- Estructura del header -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,6 +14,8 @@ $urlApp = '/FUTBOL_PERSISTENCIA/FUTBOL_PERSISTENCIA/';
     <title><?= htmlspecialchars($pageTitle ?? 'Proyecto Liga', ENT_QUOTES, 'UTF-8') ?> - Liga de Fútbol</title>
     
     
+
+ <!-- el estilo que queremos meterele    -->
 <link rel="stylesheet" href="<?php echo $urlApp ?>../assets/css/bootstrap.min.css">   
     
 </head>

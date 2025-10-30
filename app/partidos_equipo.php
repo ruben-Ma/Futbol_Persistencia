@@ -4,7 +4,7 @@ require_once __DIR__ . '/../utils/SessionHelper.php';
 require_once __DIR__ . '/../persistence/DAO/EquipoDAO.php';
 require_once __DIR__ . '/../persistence/DAO/PartidoDAO.php';
 
-SessionHelper::startSessionIfNotStarted();
+SessionHelper::startSessionIfNotStarted();//asegura que la sesion este iniciada y si no lo esta crea una nueva
 
 
 $equipo = null;
@@ -13,29 +13,27 @@ $error = null;
 $pageTitle = "Partidos de Equipo";
 
 
-$equipoId = (int)($_GET['id'] ?? 0);
+$equipoId = (int)($_GET['id'] ?? 0);//obtiene el id del equipo de la url
 
-if ($equipoId <= 0) {
+if ($equipoId <= 0) {//si el id no es valido
     $error = "ID de equipo no válido.";
 } else {
-    try {
+    try {//intenta obtener los datos del equipo y sus partidos
         $equipoDAO = new EquipoDAO();
         $partidoDAO = new PartidoDAO();
 
        
-        $equipo = $equipoDAO->getById($equipoId);
+        $equipo = $equipoDAO->getById($equipoId);//obtiene los datos del equipo
 
-        if ($equipo) {
+        if ($equipo) {//si el equipo existe
             
-            SessionHelper::setLastTeamViewed($equipoId);
+            SessionHelper::setLastTeamViewed($equipoId);//guarda en sesion el id del equipo visto por ultima vez
             
           
-            $partidos = $partidoDAO->getByEquipoId($equipoId);
-            $pageTitle = "Partidos de " . htmlspecialchars($equipo['nombre']);
+            $partidos = $partidoDAO->getByEquipoId($equipoId);//obtiene los partidos del equipo
+            $pageTitle = "Partidos de " . htmlspecialchars($equipo['nombre']);//titulo de la pagina
         } else {
             $error = "Equipo no encontrado.";
-          
-            SessionHelper::clearLastTeamViewed(); 
         }
 
     } catch (Exception $e) {

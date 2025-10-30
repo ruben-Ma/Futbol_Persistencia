@@ -12,29 +12,28 @@ $jornadas = [];
 $jornadasDisponibles = []; // Para el combo
 $pageTitle = "Gestión de Partidos";
 
-list($success, $error) = SessionHelper::getFlashMessages();
+list($success, $error) = SessionHelper::getFlashMessages();//obtiene los mensajes de exito o error de la sesion para mostrarlos en la pagina
 
-try {
+try {//intenta obtener los datos necesarios para la pagina
     $equipoDAO = new EquipoDAO();
     $partidoDAO = new PartidoDAO();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $jornada = (int)($_POST['jornada'] ?? 0);
-        $localId = (int)($_POST['id_local'] ?? 0);
-        $visitanteId = (int)($_POST['id_visitante'] ?? 0);
-        $resultado = trim($_POST['resultado'] ?? '');
-        $estadio = trim($_POST['estadio_partido'] ?? '');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {//si se envia el formulario para agregar un partido
+        $jornada = (int)($_POST['jornada'] ?? 0);//obtiene los datos del formulario
+        $localId = (int)($_POST['id_local'] ?? 0);//obtiene el id del equipo local
+        $visitanteId = (int)($_POST['id_visitante'] ?? 0);//obtiene el id del equipo visitante
+        $resultado = trim($_POST['resultado'] ?? '');//obtiene el resultado del partido
+        $estadio = trim($_POST['estadio_partido'] ?? '');//obtiene el estadio donde se jugo el partido
         
-        $validationError = null;
+        $validationError = null;//variable para errores de validacion
 
-        if ($jornada <= 0 || $localId <= 0 || $visitanteId <= 0 || empty($estadio) || empty($resultado)) {
+        if ($jornada <= 0 || $localId <= 0 || $visitanteId <= 0 || empty($estadio) || empty($resultado)) {//valida que todos los campos esten completos
             $validationError = "Todos los campos son obligatorios.";
-        } elseif ($localId === $visitanteId) {
+        } elseif ($localId === $visitanteId) {//valida que los equipos no sean el mismo
             $validationError = "Un equipo no puede jugar contra sí mismo.";
-        } elseif (!in_array($resultado, ['1', 'X', '2'])) {
+        } elseif (!in_array($resultado, ['1', 'X', '2'])) {//valida que el resultado sea valido
             $validationError = "El resultado debe ser '1', 'X', o '2'.";
-        } elseif ($partidoDAO->checkPartidoExists($localId, $visitanteId)) {
-            // VALIDACIÓN CLAVE: Comprobar si ya han jugado
+        } elseif ($partidoDAO->checkPartidoExists($localId, $visitanteId)) {//validacion clave: comprobar si ya han jugado
             $validationError = "Estos dos equipos ya han jugado. No se puede duplicar el partido.";
         }
         
@@ -57,18 +56,16 @@ try {
     }
 
     
-    // Obtenemos la jornada seleccionada del combo (o 1 por defecto)
-    $jornadaSeleccionada = (int)($_GET['jornada'] ?? 1);
+    $jornadaSeleccionada = (int)($_GET['jornada'] ?? 1);//obtiene la jornada seleccionada del combo 
     
     // Pedimos al DAO los datos para rellenar la página
-    $partidos = $partidoDAO->getByJornada($jornadaSeleccionada);
+    $partidos = $partidoDAO->getByJornada($jornadaSeleccionada);//obtiene los partidos de la jornada seleccionada
     $equipos = $equipoDAO->getAll(); // Para los <select> del formulario
     $jornadas = $partidoDAO->getAllJornadas(); // Para el combo de filtro
     
-    // Lógica para el combo: mostrar jornadas existentes y 2 más para añadir
-    $maxJornada = empty($jornadas) ? 1 : max($jornadas);
-    $jornadasDisponibles = array_unique(array_merge($jornadas, range(1, $maxJornada + 2)));
-    sort($jornadasDisponibles);
+    $maxJornada = empty($jornadas) ? 1 : max($jornadas);// mostrar jornadas existentes y 2 + para añadir
+    $jornadasDisponibles = array_unique(array_merge($jornadas, range(1, $maxJornada + 2)));//crea un array con las jornadas existentes y 2 mas
+    sort($jornadasDisponibles);//ordena las jornadas
 
 
 } catch (Exception $e) {
@@ -79,6 +76,9 @@ include __DIR__ . '/../templates/header.php';
 include __DIR__ . '/../templates/menu.php';
 
 
+
+
+// HTML de la pagina donde esta la gestion de los partidos
 ?>
 
 <div class="container-fluid px-4">

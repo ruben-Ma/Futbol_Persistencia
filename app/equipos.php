@@ -3,14 +3,15 @@
 require_once __DIR__ . '/../utils/SessionHelper.php';
 require_once __DIR__ . '/../persistence/DAO/EquipoDAO.php';
 
-SessionHelper::startSessionIfNotStarted();
 
-$equipos = [];
-$pageTitle = "Gestión de Equipos";
-$success = '';
-$error = '';
+SessionHelper::startSessionIfNotStarted();//asegura que la sesion este iniciada y si no lo esta crea una nueva
 
-if (isset($_SESSION['success'])) {
+$equipos = [];//inicializa el array de equipos
+$pageTitle = "Gestión de Equipos";//titulo de la pagina
+$success = '';//variables para mensajes
+$error = '';//variable para errores
+
+if (isset($_SESSION['success'])) {//busca mensajes de exito o error en la sesion para mostrarlos en la pagina
     $success = $_SESSION['success'];
     unset($_SESSION['success']);
 }
@@ -20,28 +21,28 @@ if (isset($_SESSION['error'])) {
 }
 
 try {
-    $equipoDAO = new EquipoDAO();
+    $equipoDAO = new EquipoDAO();//crea el dao para manejar los equipos
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {//si se envia el formulario para agregar un equipo
         $nombre = trim($_POST['nombre'] ?? '');
         $estadio = trim($_POST['estadio'] ?? '');
 
-        if (empty($nombre) || empty($estadio)) {
+        if (empty($nombre) || empty($estadio)) {//si falta algun campo
             $_SESSION['error'] = 'El nombre y el estadio son obligatorios.';
-        } else {
+        } else {//intenta insertar el equipo
             if ($equipoDAO->insert($nombre, $estadio)) {
                 $_SESSION['success'] = "Equipo '$nombre' agregado con éxito.";
-            } else {
+            } else {//si no se pudo insertar porque ya existe
                 $_SESSION['error'] = "El equipo '$nombre' ya existe.";
             }
         }
         
         
-        header("Location: equipos.php");
+        header("Location: equipos.php");//redirige para evitar reenvio del formulario
         exit;
     }
 
-    $equipos = $equipoDAO->getAll();
+    $equipos = $equipoDAO->getAll();//obtiene la lista de equipos existentes
 
 } catch (Exception $e) {
     $error = "Error crítico de base de datos: " . $e->getMessage();
