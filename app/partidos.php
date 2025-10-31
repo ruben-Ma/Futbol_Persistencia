@@ -10,7 +10,7 @@ $partidos = [];
 $equipos = [];
 $jornadas = [];
 $jornadasDisponibles = []; // Para el combo
-$pageTitle = "Gestión de Partidos";
+$pageTitle = "Gestión de Partidos";//titulo de la pagina
 
 list($success, $error) = SessionHelper::getFlashMessages();//obtiene los mensajes de exito o error de la sesion para mostrarlos en la pagina
 
@@ -63,8 +63,8 @@ try {//intenta obtener los datos necesarios para la pagina
     $equipos = $equipoDAO->getAll(); // Para los <select> del formulario
     $jornadas = $partidoDAO->getAllJornadas(); // Para el combo de filtro
     
-    $maxJornada = empty($jornadas) ? 1 : max($jornadas);// mostrar jornadas existentes y 2 + para añadir
-    $jornadasDisponibles = array_unique(array_merge($jornadas, range(1, $maxJornada + 2)));//crea un array con las jornadas existentes y 2 mas
+    $maxJornada = empty($jornadas) ? 1 : max($jornadas);// mostrar jornadas existentes y 10 + para añadir
+    $jornadasDisponibles = array_unique(array_merge($jornadas, range(1, $maxJornada + 10)));//crea un array con las jornadas existentes y 10 mas
     sort($jornadasDisponibles);//ordena las jornadas
 
 

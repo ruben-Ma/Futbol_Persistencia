@@ -1,6 +1,6 @@
 <?php
 
-class SessionHelper {
+class SessionHelper {// clase encargada de manejar las sesiones de usuario
 
    
     static function startSessionIfNotStarted() {
@@ -29,7 +29,7 @@ class SessionHelper {
         session_destroy();
     }
 
-    static function setLastTeamViewed(int $teamId) {
+    static function setLastTeamViewed(int $teamId) {//funcion que guarda el id del ultimo equipo visto en sesion
         self::startSessionIfNotStarted();
         $_SESSION['last_team_viewed_id'] = $teamId;//cuando se visita un equipo llama a esta funcion y lo apunta en sesion
         $_SESSION['team_viewed_time'] = time(); // Guardar cuando se vio el equipo
@@ -63,7 +63,7 @@ class SessionHelper {
         self::startSessionIfNotStarted();
         $_SESSION['flash_' . $type] = $message;
     }
-    static function getFlashMessages(): array {
+    static function getFlashMessages(): array {//obtiene los mensajes de exito o error almacenados en sesion y los elimina de la sesion para que no se muestren mas de una vez
         self::startSessionIfNotStarted();
         $success = null;
         $error = null;
