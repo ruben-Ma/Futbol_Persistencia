@@ -9,9 +9,6 @@ $basePath = $isInApp ? '' : 'app/';//si ya estamos dentro de app no hace falta p
 $homePath = $isInApp ? '../index.php' : 'index.php';
 ?>
 
-
-
-
 <!-- estilo y diseño del menu -->
 <link rel="stylesheet" href="<?php echo $urlApp ?>../assets/css/bootstrap.min.css">   
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">

@@ -14,12 +14,12 @@ class PartidoDAO extends GenericDAO {
                 JOIN equipos ev ON p.id_equipo_visitante = ev.id
                 WHERE p.jornada = ? ORDER BY p.id ASC";
         
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $jornada);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $partidos = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
+        $stmt = $this->conn->prepare($sql);//prepara la consulta
+        $stmt->bind_param('i', $jornada);//vincula el parametro
+        $stmt->execute();//ejecuta la consulta
+        $result = $stmt->get_result();//obtiene el resultado
+        $partidos = $result->fetch_all(MYSQLI_ASSOC);//obtiene todos los partidos como un array asociativo
+        $stmt->close();//cierra la sentencia
         return $partidos;
     }
 
@@ -31,8 +31,8 @@ class PartidoDAO extends GenericDAO {
                 WHERE p.id_equipo_local = ? OR p.id_equipo_visitante = ?
                 ORDER BY p.jornada ASC";
         
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ii', $equipoId, $equipoId);
+        $stmt = $this->conn->prepare($sql);//prepara la consulta
+        $stmt->bind_param('ii', $equipoId, $equipoId);//vincula los parametros
         $stmt->execute();
         $result = $stmt->get_result();
         $partidos = $result->fetch_all(MYSQLI_ASSOC);

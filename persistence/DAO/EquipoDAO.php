@@ -7,6 +7,7 @@ class EquipoDAO extends GenericDAO {
         parent::__construct();//
     }
 
+    
     public function getAll(): array {//obtiene todos los equipos de la base de datos
         $query = "SELECT id, nombre, estadio FROM equipos ORDER BY nombre ASC";
         $result = $this->conn->query($query);
@@ -15,6 +16,7 @@ class EquipoDAO extends GenericDAO {
         }
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
 
     public function getById(int $id): ?array {//obtiene un equipo por su id
         $query = "SELECT id, nombre, estadio FROM equipos WHERE id = ?";
@@ -26,6 +28,7 @@ class EquipoDAO extends GenericDAO {
         $stmt->close();
         return $equipo ?: null;
     }
+
 
     public function insert(string $nombre, string $estadio): bool {//inserta un nuevo equipo en la base de datos
         $query = "INSERT INTO equipos (nombre, estadio) VALUES (?, ?)";

@@ -38,7 +38,7 @@ try {//intenta obtener los datos necesarios para la pagina
         }
         
         if ($validationError) {
-            // Si hay un error, lo guardamos en la sesión para mostrarlo
+            // Si hay un error, lo guardamos en la sesin para mostrarlo
             SessionHelper::setFlashMessage('error', $validationError);
         } else {
             // Si todo está OK, insertamos
@@ -49,8 +49,8 @@ try {//intenta obtener los datos necesarios para la pagina
             }
         }
         
-        // Usamos el patrón Post-Redirect-Get para evitar reenvíos
-        // Redirigimos a la misma página (y jornada)
+        // Usamos el patron Post-Redirect-Get para evitar renvio
+        // Redirigimos a la misma paina 
         header("Location: partidos.php?jornada=" . $jornada);
         exit;
     }
@@ -125,7 +125,7 @@ include __DIR__ . '/../templates/menu.php';
         </div>
     </div>
     
-    <!-- Mensajes de Éxito o Error (del POST) -->
+    <!-- Mensajes de exito o Error de POST -->
     <?php if ($error): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <?= htmlspecialchars($error) ?>
@@ -173,7 +173,7 @@ include __DIR__ . '/../templates/menu.php';
         </div>
     </div>
 
-    <hr>
+    <hr><!-- separacion de secciones -->
     
     <div class="card">
         <div class="card-header bg-primary text-white">
@@ -235,6 +235,5 @@ include __DIR__ . '/../templates/menu.php';
 </div>
 
 <?php
-
 include __DIR__ . '/../templates/footer.php';
 ?>

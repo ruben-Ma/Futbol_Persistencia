@@ -1,4 +1,5 @@
-
+<!-- Footer para todas las paginas -->
+ 
     <footer class="footer mt-auto py-3 bg-primary text-white">
         <div class="container">
             <div class="row align-items-center">
@@ -18,4 +19,4 @@
     <script src="<?= $jsPath ?>bootstrap.bundle.min.js"></script>
 
 </body>
-</html>
+</html><!-- finnal del html -->

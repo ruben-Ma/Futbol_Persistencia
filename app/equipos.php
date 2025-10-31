@@ -48,11 +48,8 @@ try {
     $error = "Error crítico de base de datos: " . $e->getMessage();
 }
 
-
 include __DIR__ . '/../templates/header.php';
 include __DIR__ . '/../templates/menu.php';
-
-
 ?>
 
 <div class="container mt-4">
@@ -148,8 +145,6 @@ include __DIR__ . '/../templates/menu.php';
 
 </div>
 
-
-
-
 <?php
 include __DIR__ . '/../templates/footer.php';
+?>

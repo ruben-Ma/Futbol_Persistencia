@@ -13,6 +13,7 @@ class SessionHelper {
         }
     }
 
+
     static function destroySession() {
         self::startSessionIfNotStarted(); //funcion que se encarga de eliminar la sesisomm
         $_SESSION = array();
@@ -28,7 +29,6 @@ class SessionHelper {
         session_destroy();
     }
 
-  
     static function setLastTeamViewed(int $teamId) {
         self::startSessionIfNotStarted();
         $_SESSION['last_team_viewed_id'] = $teamId;//cuando se visita un equipo llama a esta funcion y lo apunta en sesion
@@ -58,9 +58,7 @@ class SessionHelper {
 
 
 
-    
        //encargado de los mensajes de error qal introducir o no introducir el usurario en las diferentes paginas
-
     static function setFlashMessage(string $type, string $message) {
         self::startSessionIfNotStarted();
         $_SESSION['flash_' . $type] = $message;

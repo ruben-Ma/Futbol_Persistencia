@@ -44,8 +44,6 @@ if ($equipoId <= 0) {//si el id no es valido
 
 include __DIR__ . '/../templates/header.php';
 include __DIR__ . '/../templates/menu.php';
-
-
 ?>
 
 <div class="container mt-4">
@@ -102,3 +100,4 @@ include __DIR__ . '/../templates/menu.php';
 
 <?php
 include __DIR__ . '/../templates/footer.php';
+?>
