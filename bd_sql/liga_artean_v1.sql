@@ -4,7 +4,8 @@
 -- SO del servidor:              Win64
 -- HeidiSQL Versión:             12.12.0.7122
 -- --------------------------------------------------------
-
+CREATE DATABASE IF NOT EXISTS `bd_sql` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `bd_sql`;
 
 CREATE TABLE IF NOT EXISTS `equipos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
