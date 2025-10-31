@@ -4,9 +4,15 @@
 -- SO del servidor:              Win64
 -- HeidiSQL Versión:             12.12.0.7122
 -- --------------------------------------------------------
-CREATE DATABASE IF NOT EXISTS `bd_sql` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `bd_sql`;
 
+
+
+
+-- Volcando estructura de base de datos para liga_artean_v1
+CREATE DATABASE IF NOT EXISTS `liga_artean_v1` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `liga_artean_v1`;
+
+-- Volcando estructura para tabla liga_artean_v1.equipos
 CREATE TABLE IF NOT EXISTS `equipos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL DEFAULT '0',
@@ -15,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   UNIQUE KEY `nombre` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Volcando datos para la tabla liga_artean_v1.equipos: ~6 rows (aproximadamente)
 INSERT INTO `equipos` (`id`, `nombre`, `estadio`) VALUES
 	(1, 'Athletic Club', 'San Mamés'),
 	(2, 'Real Sociedad', 'Reale Arena'),
@@ -23,6 +30,7 @@ INSERT INTO `equipos` (`id`, `nombre`, `estadio`) VALUES
 	(5, 'Real Madrid', 'Santiago Bernabéu'),
 	(6, 'FC Barcelona', 'Camp Nou');
 
+-- Volcando estructura para tabla liga_artean_v1.partidos
 CREATE TABLE IF NOT EXISTS `partidos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `jornada` int(11) NOT NULL,
@@ -39,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `partidos` (
   CONSTRAINT `CONSTRAINT_1` CHECK (`id_equipo_local` <> `id_equipo_visitante`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Volcando datos para la tabla liga_artean_v1.partidos: ~6 rows (aproximadamente)
 INSERT INTO `partidos` (`id`, `jornada`, `id_equipo_local`, `id_equipo_visitante`, `resultado`, `estadio_partido`) VALUES
 	(7, 1, 1, 5, '1', 'San Mamés'),
 	(8, 1, 2, 6, 'X', 'Reale Arena'),
@@ -46,5 +55,4 @@ INSERT INTO `partidos` (`id`, `jornada`, `id_equipo_local`, `id_equipo_visitante
 	(10, 2, 5, 2, 'X', 'Santiago Bernabéu'),
 	(11, 2, 6, 1, '1', 'Camp Nou'),
 	(12, 2, 4, 3, '2', 'Ipurua');
-
 
